@@ -4,7 +4,7 @@ import os
 import numpy as np
 
 # Directorio base donde se guardarán las imágenes para el entrenamiento
-base_dir = 'C:/Users/User/Desktop/tesis/PhytonDoc/Fotos/validacion/A'
+base_dir = 'C:/Users/User/Desktop/tesis/PhytonDoc/Fotos/validacion/B'
 
 # Inicialización de la cámara
 cap = cv2.VideoCapture(0)

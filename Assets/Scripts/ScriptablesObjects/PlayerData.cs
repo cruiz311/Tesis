@@ -16,7 +16,6 @@ public class PlayerData : ScriptableObject
                 userDictionary.Add(user.username, user.password);
             }
         }
-
         Debug.Log(userDictionary.Count);
     }
 }
