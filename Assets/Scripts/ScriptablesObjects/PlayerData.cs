@@ -6,27 +6,18 @@ public class PlayerData : ScriptableObject
 {
     public Dictionary<string, string> userDictionary = new Dictionary<string, string>();
     public List<PlayerCredentials> users = new List<PlayerCredentials>();
-
     public void FillUserDictionary()
     {
         foreach (var user in users)
         {
-            // Aplicar hash a la contraseña (aquí se usa un ejemplo simple, debes usar un algoritmo de hashing seguro)
-            string hashedPassword = HashFunction(user.password);
-
-            // Agregar entrada al diccionario (usuario, contraseña_hasheada)
-            userDictionary.Add(user.username, hashedPassword);
+            if (!userDictionary.ContainsKey(user.username))
+            {
+                // Agregar entrada al diccionario solo si la clave no existe
+                userDictionary.Add(user.username, user.password);
+            }
         }
 
         Debug.Log(userDictionary.Count);
-    }
-
-    // Ejemplo de función de hash (usa un algoritmo seguro como SHA-256)
-    private string HashFunction(string input)
-    {
-        // Código para aplicar un hash a 'input'
-        // Retorna la contraseña hasheada
-        return input; // Reemplazar con la función de hashing real
     }
 }
 
@@ -35,4 +26,9 @@ public class PlayerCredentials
 {
     public string username;
     public string password;
+
+    public string getUsername()
+    {
+        return username;
+    }
 }

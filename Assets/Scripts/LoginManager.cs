@@ -11,6 +11,10 @@ public class LoginManager : MonoBehaviour
     public Text messageText; // Referencia al objeto de texto para mostrar mensajes.
     private bool showMessage = false;
 
+    public void Awake()
+    {
+        userData.FillUserDictionary();
+    }
     private void Start()
     {
         // Asegurarse de que el mensaje esté oculto al inicio.
@@ -18,12 +22,9 @@ public class LoginManager : MonoBehaviour
     }
     private void Update()
     {
-        if (userData.users.Count > 0)
-        {
-            Debug.Log("username: " + userData.users[0].username);
-            Debug.Log("password: " + userData.users[0].password);
-        }
+        userData.FillUserDictionary();
     }
+
 
     public void OnLoginButtonClicked()
     {
@@ -33,27 +34,39 @@ public class LoginManager : MonoBehaviour
         string enteredUsername = usernameInputField.text;
         string enteredPassword = passwordInputField.text;
 
-        if (userData.users.Count > 0)
+        // Verificar si userData tiene algún usuario registrado
+        if (userData.userDictionary.Count > 0)
         {
-            if (enteredUsername == userData.users[0].username && enteredPassword == userData.users[0].password)
+            // Verificar si el usuario ingresado existe en el Dictionary
+            if (userData.userDictionary.ContainsKey(enteredUsername))
             {
-                // Muestra un mensaje de inicio de sesión exitoso.
-                ShowMessage("Inicio de sesión exitoso. Redirigiendo...");
-
-                // Espera unos segundos antes de cargar la escena principal.
-                StartCoroutine(LoadMainSceneAfterDelay());
+                string storedPassword = userData.userDictionary[enteredUsername];
+                // Comparar la contraseña ingresada con la contraseña almacenada (aplicar hash a la contraseña ingresada)
+                if (enteredPassword == storedPassword)
+                {
+                    // Contraseña correcta: carga la escena principal
+                    ShowMessage("Bienvenido " + enteredUsername);
+                    StartCoroutine(LoadMainSceneAfterDelay());
+                }
+                else
+                {
+                    // Contraseña incorrecta: mostrar mensaje
+                    ShowMessage("Contraseña incorrecta");
+                }
             }
             else
             {
-                // Los datos no coinciden, muestra un mensaje de error.
-                ShowMessage("Nombre de usuario o contraseña incorrectos");
+                // El usuario ingresado no está registrado: mostrar mensaje
+                ShowMessage("Usuario no encontrado");
             }
         }
         else
         {
-            ShowMessage("No hay ninguna cuenta registrada");
+            // No hay usuarios registrados: mostrar mensaje
+            ShowMessage("No hay usuarios registrados");
         }
     }
+
 
     IEnumerator LoadMainSceneAfterDelay()
     {
