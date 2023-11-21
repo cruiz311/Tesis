@@ -9,21 +9,20 @@ public class LoginManager : MonoBehaviour
     public InputField usernameInputField;
     public InputField passwordInputField;
     public Text messageText; // Referencia al objeto de texto para mostrar mensajes.
-
-    Hashtable userHashTable = new Hashtable();
     private bool showMessage = false;
 
     private void Start()
     {
         // Asegurarse de que el mensaje esté oculto al inicio.
         HideMessage();
-        userHashTable.Add("username", "john_d");
-        userHashTable.Add("password", "sdasd");
     }
     private void Update()
     {
-        Debug.Log("username: "+ userData.users[0].username);
-        Debug.Log("password: "+ userData.users[0].password);
+        if (userData.users.Count > 0)
+        {
+            Debug.Log("username: " + userData.users[0].username);
+            Debug.Log("password: " + userData.users[0].password);
+        }
     }
 
     public void OnLoginButtonClicked()
@@ -34,18 +33,25 @@ public class LoginManager : MonoBehaviour
         string enteredUsername = usernameInputField.text;
         string enteredPassword = passwordInputField.text;
 
-        if (enteredUsername == userData.users[0].username && enteredPassword == userData.users[0].password)
+        if (userData.users.Count > 0)
         {
-            // Muestra un mensaje de inicio de sesión exitoso.
-            ShowMessage("Inicio de sesión exitoso. Redirigiendo...");
+            if (enteredUsername == userData.users[0].username && enteredPassword == userData.users[0].password)
+            {
+                // Muestra un mensaje de inicio de sesión exitoso.
+                ShowMessage("Inicio de sesión exitoso. Redirigiendo...");
 
-            // Espera unos segundos antes de cargar la escena principal.
-            StartCoroutine(LoadMainSceneAfterDelay());
+                // Espera unos segundos antes de cargar la escena principal.
+                StartCoroutine(LoadMainSceneAfterDelay());
+            }
+            else
+            {
+                // Los datos no coinciden, muestra un mensaje de error.
+                ShowMessage("Nombre de usuario o contraseña incorrectos");
+            }
         }
         else
         {
-            // Los datos no coinciden, muestra un mensaje de error.
-            ShowMessage("Nombre de usuario o contraseña incorrectos");
+            ShowMessage("No hay ninguna cuenta registrada");
         }
     }
 

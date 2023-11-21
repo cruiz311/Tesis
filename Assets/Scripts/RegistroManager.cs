@@ -16,7 +16,7 @@ public class RegistroManager : MonoBehaviour
             return;
         }
         // Crea una nueva instancia de UserData y agrega los datos
-        playerData newUser = new playerData();
+        PlayerCredentials newUser = new PlayerCredentials();
         newUser.username = usernameInputField.text;
         newUser.password = passwordInputField.text;
         // Agrega el nuevo usuario a la lista en el ScriptableObject

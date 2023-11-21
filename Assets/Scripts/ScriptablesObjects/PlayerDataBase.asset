@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: PlayerDataBase
   m_EditorClassIdentifier: 
   users:
-  - username: Pepe
-    password: Grillo
+  - username: pepe
+    password: grillo
+  - username: pepito
+    password: grillo
+  - username: pepillo
+    password: grillo
