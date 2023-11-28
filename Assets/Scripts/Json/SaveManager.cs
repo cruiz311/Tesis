@@ -9,8 +9,9 @@ public class SaveManager:MonoBehaviour
     {
         dataPath = Application.persistentDataPath + "/playerData.json";
     }
-    private void OnApplicationQuit()
+    public void OnRegistrarScene()
     {
+        //hacer la verificacion cuando cree un nuevo usuario
         string jsonData = JsonUtility.ToJson(playerData);
         File.WriteAllText(dataPath, jsonData);
     }
