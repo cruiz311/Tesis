@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using AustinHarris.JsonRpc;
-public class ver : MonoBehaviour
+public class Ver : MonoBehaviour
 {
     class Rpc : JsonRpcService
     {
@@ -12,7 +10,8 @@ public class ver : MonoBehaviour
             Debug.Log($"you sent {message}");
         }
     }
-    Rpc rpc;
+
+    private Rpc rpc;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +21,6 @@ public class ver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(rpc.ToString());
     }
 }
