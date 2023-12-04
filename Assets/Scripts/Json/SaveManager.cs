@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 
+
 public class SaveManager:MonoBehaviour
 {
     public PlayerData playerData; // Tu Scriptable Object
